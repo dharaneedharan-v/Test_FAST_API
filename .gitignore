@@ -8,3 +8,13 @@ wheels/
 
 # Virtual environments
 .venv
+.env
+
+
+Statement_2026MTH06_908601329.pdf
+
+test.py
+tel.py
+transactions.json
+summary.json
+transactions.xlsx
