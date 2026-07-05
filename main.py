@@ -1,15 +1,40 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File, Form
 
 app = FastAPI()
 
+
 @app.get("/")
-def index():
-    return {"message": "FastAPI compiled flawlessly via uv!"}
-@app.get("/home")
-def hello():
-    return {"message": "Hello, FastAPI!"}
+def root():
+    return {
+        "message": "Hello World"
+    }
 
 
+@app.post("/upload-pdf")
+async def upload_pdf(
+    file: UploadFile = File(...),
+    email_subject: str = Form(...),
+    email_date: str = Form(...),
+    gmail_message_id: str = Form(...)
+):
+
+    pdf_bytes = await file.read()
+
+    print("PDF RECEIVED")
+    print("Filename:", file.filename)
+    print("Size:", len(pdf_bytes))
+    print("Subject:", email_subject)
+    print("Email Date:", email_date)
+    print("Gmail Message ID:", gmail_message_id)
+
+    return {
+        "status": "success",
+        "filename": file.filename,
+        "size_bytes": len(pdf_bytes),
+        "email_subject": email_subject,
+        "email_date": email_date,
+        "gmail_message_id": gmail_message_id
+    }
 
 
 
